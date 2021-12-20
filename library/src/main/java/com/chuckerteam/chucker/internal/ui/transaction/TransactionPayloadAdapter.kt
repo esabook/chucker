@@ -1,12 +1,15 @@
 package com.chuckerteam.chucker.internal.ui.transaction
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.databinding.ChuckerTransactionItemBodyLineBinding
@@ -14,6 +17,9 @@ import com.chuckerteam.chucker.databinding.ChuckerTransactionItemHeadersBinding
 import com.chuckerteam.chucker.databinding.ChuckerTransactionItemImageBinding
 import com.chuckerteam.chucker.internal.support.ChessboardDrawable
 import com.chuckerteam.chucker.internal.support.highlightWithDefinedColors
+import com.esabook.webviewcode.Codeview
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 
 /**
  * Adapter responsible of showing the content of the Transaction Request/Response body.
@@ -119,9 +125,48 @@ internal sealed class TransactionPayloadViewHolder(view: View) : RecyclerView.Vi
     internal class BodyLineViewHolder(
         private val bodyBinding: ChuckerTransactionItemBodyLineBinding
     ) : TransactionPayloadViewHolder(bodyBinding.root) {
+
+        @SuppressLint("ClickableViewAccessibility")
         override fun bind(item: TransactionPayloadItem) {
+            bodyBinding.btAutowrap.isVisible = false
+            bodyBinding.webview.setOnTouchListener { v, event ->
+                val isDown = event.action == MotionEvent.ACTION_DOWN
+                val isUP = event.action == MotionEvent.ACTION_UP
+
+                if (isDown) blockParentTouch(true)
+                if (isUP) blockParentTouch(false)
+                return@setOnTouchListener false
+            }
+
             if (item is TransactionPayloadItem.BodyLineItem) {
-                bodyBinding.bodyLine.text = item.line
+                if (item.line.length > 50) {
+                    bodyBinding.btAutowrap.isVisible = true
+                    bodyBinding.btAutowrap.setOnCheckedChangeListener { _, isChecked ->
+                        renderBody(item, isChecked)
+                    }
+                }
+
+                renderBody(item, bodyBinding.btAutowrap.isChecked)
+            }
+
+        }
+
+        private fun blockParentTouch(block: Boolean){
+            // fast route to disable ViewGroup when scroll X
+            bodyBinding.webview.parent.parent.parent.parent?.requestDisallowInterceptTouchEvent(block)
+            // fast route to disable RecycleView when scroll Y
+            bodyBinding.webview.parent.parent?.requestDisallowInterceptTouchEvent(block)
+        }
+
+        private fun renderBody(
+            item: TransactionPayloadItem.BodyLineItem,
+            autowrap: Boolean = true
+        ) {
+            MainScope().launch {
+                Codeview()
+                    .withCode(item.line)
+                    .setAutoWrap(autowrap)
+                    .into(bodyBinding.webview)
             }
         }
     }

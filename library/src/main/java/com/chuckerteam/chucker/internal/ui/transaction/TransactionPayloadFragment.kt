@@ -261,9 +261,9 @@ internal class TransactionPayloadFragment :
                     val text = requireContext().getString(R.string.chucker_body_empty)
                     result.add(TransactionPayloadItem.BodyLineItem(SpannableStringBuilder.valueOf(text)))
                 }
-                else -> bodyString.lines().forEach {
-                    result.add(TransactionPayloadItem.BodyLineItem(SpannableStringBuilder.valueOf(it)))
-                }
+                else ->
+                    result.add(TransactionPayloadItem.BodyLineItem(SpannableStringBuilder.valueOf(bodyString)))
+
             }
 
             return@withContext result
