@@ -43,7 +43,7 @@ afterEvaluate {
         repositories {
             maven {
                 name "snapshot"
-                url = "https://oss.sonatype.org/content/repositories/snapshots"
+                url = "https://s01.oss.sonatype.org/content/repositories/snapshots"
                 credentials {
                     username = findProperty("NEXUS_USERNAME")
                     password = findProperty("NEXUS_PASSWORD")
@@ -51,7 +51,7 @@ afterEvaluate {
             }
             maven {
                 name "staging"
-                url = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+                url = "https://s01.oss.sonatype.org/content/groups/staging"
                 credentials {
                     username = findProperty("NEXUS_USERNAME")
                     password = findProperty("NEXUS_PASSWORD")
@@ -81,6 +81,10 @@ afterEvaluate {
                     }
                     developers {
                         developer {
+                            id = 'egit'
+                            name = 'Egit'
+                        }
+                        developer {
                             id = 'cortinico'
                             name = 'Nicola Corti'
                             email = 'corti.nico@gmail.com'
@@ -105,14 +109,8 @@ afterEvaluate {
         }
     }
 
-    def signingKey = findProperty("SIGNING_KEY")
-    def signingPwd = findProperty("SIGNING_PWD")
-    if (signingKey && signingPwd) {
-        signing {
-            useInMemoryPgpKeys(signingKey, signingPwd)
-            sign publishing.publications.release
-        }
-    } else {
-        logger.info("Signing Disable as the PGP key was not found")
+
+    signing {
+        sign publishing.publications.release
     }
 }

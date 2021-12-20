@@ -26,19 +26,25 @@ Chucker simplifies the inspection of **HTTP(S) requests/responses** fired by you
 Apps using Chucker will display a **push notification** showing a summary of ongoing HTTP activity. Tapping on the notification launches the full Chucker UI. Apps can optionally suppress the notification, and launch the Chucker UI directly from within their own interface.
 
 <p align="center">
-  <img src="assets/chucker-http.gif" alt="chucker http sample" width="50%"/>
+  <img src="assets/chucker-http.gif" alt="chucker http sample" width="30%"/>
+  <img src="assets/chucker_body_select.png" alt="chucker body select" width="30%"/>
+  <img src="assets/chucker_body_wrap.png" alt="chucker body wrap" width="30%"/>
 </p>
 
 ## Getting Started 👣
 
 Chucker is distributed through [Maven Central](https://search.maven.org/artifact/com.github.chuckerteam.chucker/library). To use it you need to add the following **Gradle dependency** to your `build.gradle` file of you android app module (NOT the root file).
 
-Please note that you should add both the `library` and the the `library-no-op` variant to isolate Chucker from release builds as follows:
+Please note that you should add both the `library` and the the `library-no-op` variant to isolate Chucker from release-SNAPSHOT builds as follows:
+>> if you use for stable please refer to [official](https://github.com/ChuckerTeam/chucker) page.
 
-```groovy
+```gradle
+repositories {
+    maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots" }
+}
 dependencies {
-  debugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
-  releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
+  debugImplementation "io.github.esabook.chucker:library:4.0.0-SNAPSHOT"
+  releaseImplementation "io.github.esabook.chucker:library-no-op:4.0.0-SNAPSHOT"
 }
 ```
 
@@ -176,23 +182,11 @@ Development of Chucker happens in the [`develop`](https://github.com/ChuckerTeam
 
 ```gradle
 repositories {
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots" }
 }
 dependencies {
-  debugImplementation "com.github.chuckerteam.chucker:library:4.0.0-SNAPSHOT"
-  releaseImplementation "com.github.chuckerteam.chucker:library-no-op:4.0.0-SNAPSHOT"
-}
-```
-
-Moreover, you can still use [JitPack](https://jitpack.io/#ChuckerTeam/chucker) as it builds every branch. So the top of `develop` is available here:
-
-```gradle
-repositories {
-    maven { url "https://jitpack.io" }
-}
-dependencies {
-  debugImplementation "com.github.chuckerteam.chucker:library:develop-SNAPSHOT"
-  releaseImplementation "com.github.chuckerteam.chucker:library-no-op:develop-SNAPSHOT"
+  debugImplementation "io.github.esabook.chucker:library:4.0.0-SNAPSHOT"
+  releaseImplementation "io.github.esabook.chucker:library-no-op:4.0.0-SNAPSHOT"
 }
 ```
 
