@@ -28,7 +28,7 @@ Apps using Chucker will display a **push notification** showing a summary of ong
 <p align="center">
   <img src="assets/chucker-http.gif" alt="chucker http sample" width="30%"/>
   <img src="assets/chucker_body_select.png" alt="chucker body select" width="30%"/>
-  <img src="assets/chucker_body_wrap.png" alt="chucker body wrap" width="30%"/>
+  <img src="assets/chucker_body_wrap.jpg" alt="chucker body wrap" width="30%"/>
 </p>
 
 ## Getting Started 👣
