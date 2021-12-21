@@ -232,16 +232,16 @@ internal class TransactionPayloadFragment :
                 bodyString = transaction.getFormattedResponseBody()
             }
 
-            if (headersString.isNotBlank()) {
-                result.add(
-                    TransactionPayloadItem.HeaderItem(
-                        HtmlCompat.fromHtml(
-                            headersString,
-                            HtmlCompat.FROM_HTML_MODE_LEGACY
-                        )
-                    )
-                )
-            }
+//            if (headersString.isNotBlank()) {
+//                result.add(
+//                    TransactionPayloadItem.HeaderItem(
+//                        HtmlCompat.fromHtml(
+//                            headersString,
+//                            HtmlCompat.FROM_HTML_MODE_LEGACY
+//                        )
+//                    )
+//                )
+//            }
 
             // The body could either be an image, plain text, decoded binary or not decoded binary.
             val responseBitmap = transaction.responseImageBitmap
@@ -252,17 +252,18 @@ internal class TransactionPayloadFragment :
                 return@withContext result
             }
 
+            val header = SpannableStringBuilder.valueOf(headersString)
             when {
                 isBodyEncoded -> {
                     val text = requireContext().getString(R.string.chucker_body_omitted)
-                    result.add(TransactionPayloadItem.BodyLineItem(SpannableStringBuilder.valueOf(text)))
+                    result.add(TransactionPayloadItem.BodyLineItem(SpannableStringBuilder.valueOf(text), header))
                 }
                 bodyString.isBlank() -> {
                     val text = requireContext().getString(R.string.chucker_body_empty)
-                    result.add(TransactionPayloadItem.BodyLineItem(SpannableStringBuilder.valueOf(text)))
+                    result.add(TransactionPayloadItem.BodyLineItem(SpannableStringBuilder.valueOf(text), header))
                 }
                 else ->
-                    result.add(TransactionPayloadItem.BodyLineItem(SpannableStringBuilder.valueOf(bodyString)))
+                    result.add(TransactionPayloadItem.BodyLineItem(SpannableStringBuilder.valueOf(bodyString), header))
 
             }
 
