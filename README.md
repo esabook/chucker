@@ -1,11 +1,16 @@
-# Chucker
-[![Maven Central](https://img.shields.io/maven-central/v/com.github.chuckerteam.chucker/library)](https://search.maven.org/artifact/com.github.chuckerteam.chucker/library) ![Pre Merge Checks](https://github.com/ChuckerTeam/chucker/workflows/Pre%20Merge%20Checks/badge.svg?branch=develop)  ![License](https://img.shields.io/github/license/ChuckerTeam/Chucker.svg) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-orange.svg)](http://makeapullrequest.com) [![Join the chat at https://kotlinlang.slack.com](https://img.shields.io/badge/slack-@kotlinlang/chucker-yellow.svg?logo=slack)](https://kotlinlang.slack.com/archives/CRWD6370R) [![Android Weekly](https://img.shields.io/badge/Android%20Weekly-%23375-blue.svg)](https://androidweekly.net/issues/issue-375)
+# Chucker + Highlight.Js
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.esabook.chucker/library)](https://search.maven.org/artifact/io.github.esabook.chucker/library)
 
-_A fork of [Chuck](https://github.com/jgilfelt/chuck)_
+
+# Additional
+- Syntax highlighting with https://highlightjs.org/
+- Find navigation
+- Text Wrapping
 
 <p align="center">
   <img src="assets/ic_launcher-web.png" alt="chucker icon" width="30%"/>
 </p>
+
 
 * [Getting Started](#getting-started-)
 * [Features](#features-)
@@ -36,15 +41,16 @@ Apps using Chucker will display a **push notification** showing a summary of ong
 Chucker is distributed through [Maven Central](https://search.maven.org/artifact/com.github.chuckerteam.chucker/library). To use it you need to add the following **Gradle dependency** to your `build.gradle` file of you android app module (NOT the root file).
 
 Please note that you should add both the `library` and the the `library-no-op` variant to isolate Chucker from release-SNAPSHOT builds as follows:
->> if you use for stable please refer to [official](https://github.com/ChuckerTeam/chucker) page.
+
+
 
 ```gradle
 repositories {
-    maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots" }
+    mavenCentral()
 }
 dependencies {
-  debugImplementation "io.github.esabook.chucker:library:4.0.0-SNAPSHOT"
-  releaseImplementation "io.github.esabook.chucker:library-no-op:4.0.0-SNAPSHOT"
+  debugImplementation "io.github.esabook.chucker:library:4.0.2"
+  releaseImplementation "io.github.esabook.chucker:library-no-op:4.0.2"
 }
 ```
 
@@ -143,7 +149,7 @@ You can redact headers that contain sensitive information by calling `redactHead
 
 
 ```kotlin
-interceptor.redactHeader("Auth-Token", "User-Session");
+interceptor.redactHeader("Auth-Token", "User-Session")
 ```
 
 ### Decode-Body 📖
@@ -169,6 +175,8 @@ object ProtoDecoder : BinaryDecoder {
 interceptorBuilder.addBodyDecoder(ProtoDecoder).build()
 ```
 
+<hr/>
+
 ## Migrating 🚗
 
 If you're migrating **from [Chuck](https://github.com/jgilfelt/chuck) to Chucker**, please refer to this [migration guide](/docs/migrating-from-chuck.md).
@@ -177,23 +185,8 @@ If you're migrating **from Chucker v2.0 to v3.0**, please expect multiple breaki
 
 
 ## Snapshots 📦
+`see original doc at` https://github.com/ChuckerTeam/chucker/
 
-Development of Chucker happens in the [`develop`](https://github.com/ChuckerTeam/chucker/tree/develop) branch. Every push to `develop` will trigger a publishing of a `SNAPSHOT` artifact for the upcoming version. You can get those snapshots artifacts directly from Sonatype with:
-
-```gradle
-repositories {
-    maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots" }
-}
-dependencies {
-  debugImplementation "io.github.esabook.chucker:library:4.0.0-SNAPSHOT"
-  releaseImplementation "io.github.esabook.chucker:library-no-op:4.0.0-SNAPSHOT"
-}
-```
-
-
-⚠️ Please note that the latest snapshot might be **unstable**. Use it at your own risk ⚠️
-
-If you're looking for the **latest stable version**, you can always find it in `Releases` section.
 
 ## FAQ ❓
 
