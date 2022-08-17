@@ -23,7 +23,7 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true
+        viewBinding true
         buildConfig = false
     }
 
@@ -46,6 +46,13 @@ android {
     }
 
     resourcePrefix 'chucker_'
+
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 
 dependencies {

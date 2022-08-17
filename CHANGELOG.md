@@ -11,6 +11,7 @@ Please add your entries according to this format.
 * Brotli compression support
 * Added ability to export list of transactions as .har file.
 * Added ability to save single transaction as .har file.
+* Added ability to export transactions to a file programmatically.
 
 ### Fixed
 
@@ -18,6 +19,7 @@ Please add your entries according to this format.
 * Fixed wrongful processing of one shot and duplex requests [#544].
 * Fixed writing to database on the main thread [#487].
 * Fixed RTL issue in payload view
+* Fixed StrictMode ThreadPolicy violations [#737]
 
 ### Removed
 
@@ -522,3 +524,4 @@ Initial release.
 [#545]: https://github.com/ChuckerTeam/chucker/issues/545
 [#593]: https://github.com/ChuckerTeam/chucker/issues/593
 [#653]: https://github.com/ChuckerTeam/chucker/pull/653
+[#737]: https://github.com/ChuckerTeam/chucker/issues/737
